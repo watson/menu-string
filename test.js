@@ -5,11 +5,7 @@ const Menu = require('./')
 
 test('new Menu(options)', function (t) {
   const menu = new Menu({
-    items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: 'Item 3'}
-    ]
+    items: genItems(3)
   })
   t.equal(menu.toString(),
     '> Item 1\n' +
@@ -20,11 +16,7 @@ test('new Menu(options)', function (t) {
 })
 
 test('new Menu(items)', function (t) {
-  const menu = new Menu([
-    {text: 'Item 1'},
-    {text: 'Item 2'},
-    {text: 'Item 3'}
-  ])
+  const menu = new Menu(genItems(3))
   t.equal(menu.toString(),
     '> Item 1\n' +
     '  Item 2\n' +
@@ -35,11 +27,7 @@ test('new Menu(items)', function (t) {
 
 test('options.selected', function (t) {
   const menu = new Menu({
-    items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: 'Item 3'}
-    ],
+    items: genItems(3),
     selected: 1
   })
   t.equal(menu.toString(),
@@ -53,11 +41,7 @@ test('options.selected', function (t) {
 test('options.render', function (t) {
   t.plan(6)
   new Menu({
-    items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: 'Item 3'}
-    ],
+    items: genItems(3),
     render: function (item, selected) {
       t.equal(item.text, 'Item ' + (item.index + 1))
       t.equal(item.index === 0, selected)
@@ -66,11 +50,7 @@ test('options.render', function (t) {
 })
 
 test('item as string', function (t) {
-  const menu = new Menu([
-    'Item 1',
-    'Item 2',
-    'Item 3'
-  ])
+  const menu = new Menu(genItems(3))
   t.equal(menu.toString(),
     '> Item 1\n' +
     '  Item 2\n' +
@@ -81,11 +61,7 @@ test('item as string', function (t) {
 
 test('menu.up()', function (t) {
   const menu = new Menu({
-    items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: 'Item 3'}
-    ],
+    items: genItems(3),
     selected: 1
   })
   t.ok(menu.up())
@@ -105,11 +81,7 @@ test('menu.up()', function (t) {
 
 test('menu.down()', function (t) {
   const menu = new Menu({
-    items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: 'Item 3'}
-    ],
+    items: genItems(3),
     selected: 1
   })
   t.ok(menu.down())
@@ -128,11 +100,7 @@ test('menu.down()', function (t) {
 })
 
 test('menu.select(index)', function (t) {
-  const menu = new Menu([
-    {text: 'Item 1'},
-    {text: 'Item 2'},
-    {text: 'Item 3'}
-  ])
+  const menu = new Menu(genItems(3))
   t.ok(menu.select(1))
   t.equal(menu.toString(),
     '  Item 1\n' +
@@ -149,11 +117,7 @@ test('menu.select(index)', function (t) {
 })
 
 test('menu.selected()', function (t) {
-  const menu = new Menu([
-    {text: 'Item 1'},
-    {text: 'Item 2'},
-    {text: 'Item 3'}
-  ])
+  const menu = new Menu(genItems(3))
   t.deepEqual(menu.selected(), {text: 'Item 1', index: 0})
   t.ok(menu.select(2))
   t.deepEqual(menu.selected(), {text: 'Item 3', index: 2})
@@ -341,3 +305,11 @@ test('separator, down last', function (t) {
   )
   t.end()
 })
+
+function genItems (n) {
+  const items = []
+  for (let i = 0; i < n; i++) {
+    items[i] = 'Item ' + (i + 1)
+  }
+  return items
+}
