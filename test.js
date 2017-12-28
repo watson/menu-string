@@ -25,6 +25,16 @@ test('new Menu(items)', function (t) {
   t.end()
 })
 
+test('item as string', function (t) {
+  const menu = new Menu(genItems(3))
+  t.equal(menu.toString(),
+    '> Item 1\n' +
+    '  Item 2\n' +
+    '  Item 3'
+  )
+  t.end()
+})
+
 test('options.selected', function (t) {
   const menu = new Menu({
     items: genItems(3),
@@ -49,12 +59,22 @@ test('options.render', function (t) {
   }).toString()
 })
 
-test('item as string', function (t) {
-  const menu = new Menu(genItems(3))
+test('options.height - crop', function (t) {
+  const menu = new Menu({
+    items: genItems(20),
+    height: 10
+  })
   t.equal(menu.toString(),
     '> Item 1\n' +
     '  Item 2\n' +
-    '  Item 3'
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9\n' +
+    '  Item 10'
   )
   t.end()
 })
@@ -113,6 +133,211 @@ test('menu.select(index)', function (t) {
     '> Item 2\n' +
     '  Item 3'
   )
+  t.end()
+})
+
+test('options.height - move down', function (t) {
+  const menu = new Menu({
+    items: genItems(10),
+    height: 8
+  })
+  t.equal(menu.toString(),
+    '> Item 1\n' +
+    '  Item 2\n' +
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8'
+  )
+  t.ok(menu.select(4))
+  t.equal(menu.toString(),
+    '  Item 1\n' +
+    '  Item 2\n' +
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '> Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8'
+  )
+  t.ok(menu.down())
+  t.equal(menu.toString(),
+    '  Item 2\n' +
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '> Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9'
+  )
+  t.ok(menu.down())
+  t.equal(menu.toString(),
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '> Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9\n' +
+    '  Item 10'
+  )
+  t.ok(menu.down())
+  t.equal(menu.toString(),
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '> Item 8\n' +
+    '  Item 9\n' +
+    '  Item 10'
+  )
+  t.ok(menu.down())
+  t.equal(menu.toString(),
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8\n' +
+    '> Item 9\n' +
+    '  Item 10'
+  )
+  t.ok(menu.down())
+  t.equal(menu.toString(),
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9\n' +
+    '> Item 10'
+  )
+  t.notOk(menu.down())
+  t.end()
+})
+
+test('options.height + options.selected', function (t) {
+  const m1 = new Menu({
+    items: genItems(10),
+    height: 8,
+    selected: 9
+  })
+  t.equal(m1.toString(),
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9\n' +
+    '> Item 10'
+  )
+  const m2 = new Menu({
+    items: genItems(10),
+    height: 8,
+    selected: 6
+  })
+  t.equal(m2.toString(),
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '> Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9\n' +
+    '  Item 10'
+  )
+  t.end()
+})
+
+test('options.height - move up', function (t) {
+  const menu = new Menu({
+    items: genItems(10),
+    height: 8,
+    selected: 9
+  })
+  t.equal(menu.toString(),
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9\n' +
+    '> Item 10'
+  )
+  t.ok(menu.select(5))
+  t.equal(menu.toString(),
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '> Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9\n' +
+    '  Item 10'
+  )
+  t.ok(menu.up())
+  t.equal(menu.toString(),
+    '  Item 2\n' +
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '> Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9'
+  )
+  t.ok(menu.up())
+  t.equal(menu.toString(),
+    '  Item 1\n' +
+    '  Item 2\n' +
+    '  Item 3\n' +
+    '> Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8'
+  )
+  t.ok(menu.up())
+  t.equal(menu.toString(),
+    '  Item 1\n' +
+    '  Item 2\n' +
+    '> Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8'
+  )
+  t.ok(menu.up())
+  t.equal(menu.toString(),
+    '  Item 1\n' +
+    '> Item 2\n' +
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8'
+  )
+  t.ok(menu.up())
+  t.equal(menu.toString(),
+    '> Item 1\n' +
+    '  Item 2\n' +
+    '  Item 3\n' +
+    '  Item 4\n' +
+    '  Item 5\n' +
+    '  Item 6\n' +
+    '  Item 7\n' +
+    '  Item 8'
+  )
+  t.notOk(menu.up())
   t.end()
 })
 

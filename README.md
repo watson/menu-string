@@ -59,6 +59,10 @@ Options:
   position in the menu
 - `selected` - An optional integer specifying which menu item should be
   selected by default (defaults to `0`)
+- `height` - Set menu max height (in rows). If set, the menu will
+  maintain a viewport, only ever rendering that amout of menu items.
+  When moving the cursor up or down, the viewport will scroll to
+  accommodate.
 
 An `item` object can have the following properties:
 
