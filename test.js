@@ -531,6 +531,29 @@ test('separator, down last', function (t) {
   t.end()
 })
 
+test('update event', function (t) {
+  t.plan(5)
+  const menu = new Menu(genItems(3))
+  menu.on('update', function () {
+    if (menu.selected().index === 1) {
+      t.equal(menu.toString(),
+        '  Item 1\n' +
+        '> Item 2\n' +
+        '  Item 3'
+      )
+    } else {
+      t.equal(menu.toString(),
+        '  Item 1\n' +
+        '  Item 2\n' +
+        '> Item 3'
+      )
+    }
+  })
+  t.ok(menu.down())
+  t.ok(menu.down())
+  t.notOk(menu.down())
+})
+
 function genItems (n) {
   const items = []
   for (let i = 0; i < n; i++) {

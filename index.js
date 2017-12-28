@@ -1,11 +1,18 @@
 'use strict'
 
+const inherits = require('util').inherits
+const EventEmitter = require('events')
 const BUFFER = 3
+
+inherits(Menu, EventEmitter)
 
 module.exports = Menu
 
 function Menu (opts) {
   if (!(this instanceof Menu)) return new Menu(opts)
+
+  EventEmitter.call(this)
+
   if (Array.isArray(opts)) opts = {items: opts}
   this._items = normalizeItems(opts.items)
   this._render = opts.render || render
@@ -27,6 +34,7 @@ Menu.prototype.up = function () {
   if (i < 0) return false
   this._selected = i
   this._viewportUp()
+  this.emit('update')
   return true
 }
 
@@ -36,6 +44,7 @@ Menu.prototype.down = function () {
   if (i === this._items.length) return false
   this._selected = i
   this._viewportDown()
+  this.emit('update')
   return true
 }
 
@@ -46,6 +55,7 @@ Menu.prototype.select = function (index) {
     this._items[index].separator) return false
   this._selected = index
   this._viewportSync()
+  this.emit('update')
   return true
 }
 
