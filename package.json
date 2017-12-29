@@ -1,6 +1,6 @@
 {
   "name": "menu-string",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Generate a menu with selectable menu items as a string",
   "main": "index.js",
   "dependencies": {},
@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/watson/menu-string#readme",
   "coordinates": [
-    51.396924,
-    12.3940333
+    51.3978265,
+    12.3975969
   ]
 }
