@@ -136,6 +136,40 @@ test('menu.select(index)', function (t) {
   t.end()
 })
 
+test('menu.select(index) - with height', function (t) {
+  const menu = new Menu({
+    items: genItems(20),
+    height: 10
+  })
+  t.ok(menu.select(9))
+  t.equal(menu.toString(),
+    '  Item 7\n' +
+    '  Item 8\n' +
+    '  Item 9\n' +
+    '> Item 10\n' +
+    '  Item 11\n' +
+    '  Item 12\n' +
+    '  Item 13\n' +
+    '  Item 14\n' +
+    '  Item 15\n' +
+    '  Item 16'
+  )
+  t.ok(menu.select(18))
+  t.equal(menu.toString(),
+    '  Item 11\n' +
+    '  Item 12\n' +
+    '  Item 13\n' +
+    '  Item 14\n' +
+    '  Item 15\n' +
+    '  Item 16\n' +
+    '  Item 17\n' +
+    '  Item 18\n' +
+    '> Item 19\n' +
+    '  Item 20'
+  )
+  t.end()
+})
+
 test('options.height - move down', function (t) {
   const menu = new Menu({
     items: genItems(10),

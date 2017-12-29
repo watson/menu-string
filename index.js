@@ -43,7 +43,7 @@ Menu.prototype.down = function () {
   while (++i < this.items.length && this.items[i].separator) {}
   if (i === this.items.length) return false
   this._selected = i
-  this._viewportDown()
+  this._viewportDownCursorBottom()
   this.emit('update')
   return true
 }
@@ -78,7 +78,7 @@ Menu.prototype.toString = function () {
 Menu.prototype._viewportSync = function () {
   if (this._height) {
     if (this._selected < this._offset) this._viewportUp()
-    else if (this._selected >= (this._offset + this._height) - BUFFER) this._viewportDown()
+    else if (this._selected >= (this._offset + this._height) - BUFFER) this._viewportDownCursorTop()
   }
 }
 
@@ -90,7 +90,14 @@ Menu.prototype._viewportUp = function () {
   ) this._offset--                         // then move the viewport one up
 }
 
-Menu.prototype._viewportDown = function () {
+Menu.prototype._viewportDownCursorTop = function () {
+  while (
+    this._offset + BUFFER < this._selected &&       // if the viewport is too far up related to the cursor
+    this._height + this._offset < this.items.length // and we haven't yet reached the bottom
+  ) this._offset++                                  // then move the viewport one down
+}
+
+Menu.prototype._viewportDownCursorBottom = function () {
   while (
     this._height &&                                             // if the menu have a max height
     this._selected >= (this._offset + this._height) - BUFFER && // and the viewport is too far up related to the cursor
