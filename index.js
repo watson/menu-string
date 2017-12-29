@@ -14,7 +14,7 @@ function Menu (opts) {
   EventEmitter.call(this)
 
   if (Array.isArray(opts)) opts = {items: opts}
-  this._items = normalizeItems(opts.items)
+  this.items = normalizeItems(opts.items)
   this._render = opts.render || render
   this._selected = opts.selected || 0
   this._height = opts.height
@@ -23,14 +23,14 @@ function Menu (opts) {
   // If the selected item is a separator try to first find the next
   // non-separator going down. If none is found, try to go up. If none
   // is found up either, set the selected item to null
-  if (this._items[this._selected].separator && !this.down() && !this.up()) this._selected = null
+  if (this.items[this._selected].separator && !this.down() && !this.up()) this._selected = null
 
   this._viewportSync()
 }
 
 Menu.prototype.up = function () {
   let i = this._selected
-  while (--i >= 0 && this._items[i].separator) {}
+  while (--i >= 0 && this.items[i].separator) {}
   if (i < 0) return false
   this._selected = i
   this._viewportUp()
@@ -40,8 +40,8 @@ Menu.prototype.up = function () {
 
 Menu.prototype.down = function () {
   let i = this._selected
-  while (++i < this._items.length && this._items[i].separator) {}
-  if (i === this._items.length) return false
+  while (++i < this.items.length && this.items[i].separator) {}
+  if (i === this.items.length) return false
   this._selected = i
   this._viewportDown()
   this.emit('update')
@@ -51,8 +51,8 @@ Menu.prototype.down = function () {
 Menu.prototype.select = function (index) {
   if (!Number.isFinite(index) ||
     index < 0 ||
-    index >= this._items.length ||
-    this._items[index].separator) return false
+    index >= this.items.length ||
+    this.items[index].separator) return false
   this._selected = index
   this._viewportSync()
   this.emit('update')
@@ -62,12 +62,12 @@ Menu.prototype.select = function (index) {
 Menu.prototype.selected = function () {
   // in case the menu is empty or only consists of separators
   if (this._selected === null) return null
-  return this._items[this._selected]
+  return this.items[this._selected]
 }
 
 Menu.prototype.toString = function () {
   const self = this
-  return this._items
+  return this.items
     .slice(this._offset, this._height && this._offset + this._height)
     .map(function (item, index) {
       return self._render(item, index + self._offset === self._selected)
@@ -94,7 +94,7 @@ Menu.prototype._viewportDown = function () {
   while (
     this._height &&                                             // if the menu have a max height
     this._selected >= (this._offset + this._height) - BUFFER && // and the viewport is too far up related to the cursor
-    this._height + this._offset < this._items.length            // but we haven't yet reached the bottom
+    this._height + this._offset < this.items.length             // but we haven't yet reached the bottom
   ) this._offset++                                              // then move the viewport one down
 }
 

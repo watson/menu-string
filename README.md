@@ -95,6 +95,10 @@ new Menu({
 An update event is emitted when ever the menu is updated - i.e. the
 cursor is moved.
 
+### `menu.items`
+
+Array of menu items.
+
 ### `success = menu.up()`
 
 Move the cursor one item up. Separator items will be skipped.
