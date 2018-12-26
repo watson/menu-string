@@ -13,7 +13,7 @@ function Menu (opts) {
 
   EventEmitter.call(this)
 
-  if (Array.isArray(opts)) opts = {items: opts}
+  if (Array.isArray(opts)) opts = { items: opts }
   this.items = normalizeItems(opts.items)
   this._render = opts.render || render
   this._selected = opts.selected || 0
@@ -90,25 +90,25 @@ Menu.prototype._viewportSync = function () {
 
 Menu.prototype._viewportUp = function () {
   while (
-    this._height &&                        // if the menu have a max height
-    this._offset > 0 &&                    // and we haven't already reached the top
+    this._height && // if the menu have a max height
+    this._offset > 0 && // and we haven't already reached the top
     this._selected - this._offset < BUFFER // and we are close the top edge
-  ) this._offset--                         // then move the viewport one up
+  ) this._offset-- // then move the viewport one up
 }
 
 Menu.prototype._viewportDownCursorTop = function () {
   while (
-    this._offset + BUFFER < this._selected &&       // if the viewport is too far up related to the cursor
+    this._offset + BUFFER < this._selected && // if the viewport is too far up related to the cursor
     this._height + this._offset < this.items.length // and we haven't yet reached the bottom
-  ) this._offset++                                  // then move the viewport one down
+  ) this._offset++ // then move the viewport one down
 }
 
 Menu.prototype._viewportDownCursorBottom = function () {
   while (
-    this._height &&                                             // if the menu have a max height
+    this._height && // if the menu have a max height
     this._selected >= (this._offset + this._height) - BUFFER && // and the viewport is too far up related to the cursor
-    this._height + this._offset < this.items.length             // but we haven't yet reached the bottom
-  ) this._offset++                                              // then move the viewport one down
+    this._height + this._offset < this.items.length // but we haven't yet reached the bottom
+  ) this._offset++ // then move the viewport one down
 }
 
 function render (item, selected) {
@@ -117,7 +117,7 @@ function render (item, selected) {
 
 function normalizeItems (items) {
   return items.map(function (item, index) {
-    if (typeof item === 'string') item = {text: item}
+    if (typeof item === 'string') item = { text: item }
     item.index = index
     return item
   })

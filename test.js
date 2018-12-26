@@ -377,31 +377,31 @@ test('options.height - move up', function (t) {
 
 test('menu.selected()', function (t) {
   const menu = new Menu(genItems(3))
-  t.deepEqual(menu.selected(), {text: 'Item 1', index: 0})
+  t.deepEqual(menu.selected(), { text: 'Item 1', index: 0 })
   t.ok(menu.select(2))
-  t.deepEqual(menu.selected(), {text: 'Item 3', index: 2})
+  t.deepEqual(menu.selected(), { text: 'Item 3', index: 2 })
   t.end()
 })
 
 test('menu.toggleMark()', function (t) {
   const menu = new Menu(genItems(3))
-  t.deepEqual(menu.selected(), {text: 'Item 1', index: 0})
+  t.deepEqual(menu.selected(), { text: 'Item 1', index: 0 })
   menu.toggleMark()
-  t.deepEqual(menu.selected(), {text: 'Item 1', index: 0, marked: true})
+  t.deepEqual(menu.selected(), { text: 'Item 1', index: 0, marked: true })
   menu.toggleMark()
-  t.deepEqual(menu.selected(), {text: 'Item 1', index: 0, marked: false})
+  t.deepEqual(menu.selected(), { text: 'Item 1', index: 0, marked: false })
   menu.select(1)
-  t.deepEqual(menu.selected(), {text: 'Item 2', index: 1})
+  t.deepEqual(menu.selected(), { text: 'Item 2', index: 1 })
   menu.select(0)
   t.end()
 })
 
 test('separator, not first', function (t) {
   const menu = new Menu([
-    {text: 'Item 1'},
-    {text: 'Item 2'},
-    {text: '------', separator: true},
-    {text: 'Item 3'}
+    { text: 'Item 1' },
+    { text: 'Item 2' },
+    { text: '------', separator: true },
+    { text: 'Item 3' }
   ])
   t.equal(menu.toString(),
     '> Item 1\n' +
@@ -414,10 +414,10 @@ test('separator, not first', function (t) {
 
 test('separator, first', function (t) {
   const menu = new Menu([
-    {text: '------', separator: true},
-    {text: 'Item 1'},
-    {text: 'Item 2'},
-    {text: 'Item 3'}
+    { text: '------', separator: true },
+    { text: 'Item 1' },
+    { text: 'Item 2' },
+    { text: 'Item 3' }
   ])
   t.equal(menu.toString(),
     '  ------\n' +
@@ -431,10 +431,10 @@ test('separator, first', function (t) {
 test('separator, default selected middle', function (t) {
   const menu = new Menu({
     items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: '------', separator: true},
-      {text: 'Item 3'}
+      { text: 'Item 1' },
+      { text: 'Item 2' },
+      { text: '------', separator: true },
+      { text: 'Item 3' }
     ],
     selected: 2
   })
@@ -450,10 +450,10 @@ test('separator, default selected middle', function (t) {
 test('separator, default selected last', function (t) {
   const menu = new Menu({
     items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: 'Item 3'},
-      {text: '------', separator: true}
+      { text: 'Item 1' },
+      { text: 'Item 2' },
+      { text: 'Item 3' },
+      { text: '------', separator: true }
     ],
     selected: 3
   })
@@ -468,7 +468,7 @@ test('separator, default selected last', function (t) {
 
 test('separator, only', function (t) {
   const menu = new Menu([
-    {text: '------', separator: true}
+    { text: '------', separator: true }
   ])
   t.equal(menu.toString(),
     '  ------'
@@ -480,10 +480,10 @@ test('separator, only', function (t) {
 test('separator, skip up', function (t) {
   const menu = new Menu({
     items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: '------', separator: true},
-      {text: 'Item 3'}
+      { text: 'Item 1' },
+      { text: 'Item 2' },
+      { text: '------', separator: true },
+      { text: 'Item 3' }
     ],
     selected: 3
   })
@@ -506,10 +506,10 @@ test('separator, skip up', function (t) {
 test('separator, skip down', function (t) {
   const menu = new Menu({
     items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: '------', separator: true},
-      {text: 'Item 3'}
+      { text: 'Item 1' },
+      { text: 'Item 2' },
+      { text: '------', separator: true },
+      { text: 'Item 3' }
     ],
     selected: 1
   })
@@ -531,10 +531,10 @@ test('separator, skip down', function (t) {
 
 test('separator, up last', function (t) {
   const menu = new Menu([
-    {text: '------', separator: true},
-    {text: 'Item 1'},
-    {text: 'Item 2'},
-    {text: 'Item 3'}
+    { text: '------', separator: true },
+    { text: 'Item 1' },
+    { text: 'Item 2' },
+    { text: 'Item 3' }
   ])
   t.equal(menu.toString(),
     '  ------\n' +
@@ -555,10 +555,10 @@ test('separator, up last', function (t) {
 test('separator, down last', function (t) {
   const menu = new Menu({
     items: [
-      {text: 'Item 1'},
-      {text: 'Item 2'},
-      {text: 'Item 3'},
-      {text: '------', separator: true}
+      { text: 'Item 1' },
+      { text: 'Item 2' },
+      { text: 'Item 3' },
+      { text: '------', separator: true }
     ],
     selected: 2
   })
