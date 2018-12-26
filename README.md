@@ -2,6 +2,7 @@
 
 Generate a menu with selectable menu items as a string.
 
+[![npm](https://img.shields.io/npm/v/menu-string.svg)](https://www.npmjs.com/package/menu-string)
 [![Build status](https://travis-ci.org/watson/menu-string.svg?branch=master)](https://travis-ci.org/watson/menu-string)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
@@ -139,4 +140,4 @@ rendered by the render function.
 
 ## License
 
-MIT
+[MIT](LICENSE)
