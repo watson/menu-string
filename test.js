@@ -383,6 +383,19 @@ test('menu.selected()', function (t) {
   t.end()
 })
 
+test('menu.toggleMark()', function (t) {
+  const menu = new Menu(genItems(3))
+  t.deepEqual(menu.selected(), {text: 'Item 1', index: 0})
+  menu.toggleMark()
+  t.deepEqual(menu.selected(), {text: 'Item 1', index: 0, marked: true})
+  menu.toggleMark()
+  t.deepEqual(menu.selected(), {text: 'Item 1', index: 0, marked: false})
+  menu.select(1)
+  t.deepEqual(menu.selected(), {text: 'Item 2', index: 1})
+  menu.select(0)
+  t.end()
+})
+
 test('separator, not first', function (t) {
   const menu = new Menu([
     {text: 'Item 1'},

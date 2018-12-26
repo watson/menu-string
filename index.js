@@ -65,6 +65,12 @@ Menu.prototype.selected = function () {
   return this.items[this._selected]
 }
 
+Menu.prototype.toggleMark = function () {
+  if (this._selected === null) return
+  this.items[this._selected].marked = !this.items[this._selected].marked
+  this.emit('update')
+}
+
 Menu.prototype.toString = function () {
   const self = this
   return this.items

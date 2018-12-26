@@ -68,6 +68,9 @@ An `item` object can have the following properties:
 
 - `text` - The text to show when rendering the item
 - `separator` - A boolean indicating if the item can be selected
+- `marked` - A boolean indicating if the item should me "marked". This
+  property can be toggled using `item.toggleMark()`. It's up the the
+  implementer to render marked items differently.
 
 An `item` can also just be a string, which is treated as `{text: item}`.
 
@@ -124,6 +127,10 @@ Returns `false` if the index was invalid. Returns `true` otherwise.
 Returns the selected `item` object. The returned `item` object will have
 an `index` property indicating its position in the menu. Returns `null`
 if no selectable menu item exists.
+
+### `menu.toggleMark()`
+
+Toggle the `marked` boolean of the currently selected item.
 
 ### `str = menu.toString()`
 
